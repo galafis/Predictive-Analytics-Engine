@@ -1,18 +1,51 @@
-# Core dependencies for Predictive Analytics Engine
-numpy>=1.21.0
-pandas>=1.3.0
-scikit-learn>=1.0.0
-matplotlib>=3.4.0
-seaborn>=0.11.0
-jupyter>=1.0.0
+"""
+requirements.txt — Predictive Analytics Engine
+---------------------------------------------
 
-# Optional: Additional ML libraries
-# tensorflow>=2.8.0
-# torch>=1.11.0
-# xgboost>=1.5.0
-# lightgbm>=3.3.0
+Este arquivo lista dependências padrão para projetos de ML em Python.
+Inclui bibliotecas essenciais (numpy, pandas, scikit-learn), utilitários,
+testes (pytest) e ferramentas de qualidade de código. As versões são
+mínimas para garantir compatibilidade ampla, permitindo atualizações de
+patch/minor sem quebrar o ambiente.
+"""
 
-# Development dependencies
-pytest>=6.2.0
-black>=21.0.0
-flake8>=4.0.0
+# Núcleo científico
+numpy>=1.23
+pandas>=1.5
+scikit-learn>=1.2
+scipy>=1.9
+joblib>=1.2
+
+# Visualização (opcional)
+matplotlib>=3.7
+seaborn>=0.12
+
+# Notebooks (opcional)
+jupyter>=1.0
+
+# Utilidades e configuração
+pydantic>=2.0
+pyyaml>=6.0
+python-dotenv>=1.0
+packaging>=23.0
+
+# Registro/monitoramento (opcional)
+# Remova o comentário se for usar MLflow
+# mlflow>=2.0
+
+# Serialização e I/O
+cloudpickle>=2.2
+
+# Logging estruturado (opcional)
+rich>=13.0
+
+# Testes e qualidade de código
+pytest>=7.0
+pytest-cov>=4.0
+black>=23.0
+flake8>=6.0
+mypy>=1.0
+
+# Tipos (para editores)
+types-PyYAML>=6.0
+pandas-stubs>=2.0
