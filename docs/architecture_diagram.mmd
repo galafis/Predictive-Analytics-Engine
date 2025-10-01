@@ -1,0 +1,15 @@
+graph TD
+    A[Data Source] --> B[Data Loader]
+    B --> C[Preprocessor]
+    C --> D[Analytics Engine]
+    D --> E{Models}
+    D --> F[Utilities]
+    G[Configuration] --> B
+    G --> C
+    G --> D
+    G --> E
+    G --> F
+    D --> H[Results & Visualizations]
+    H --> I[Main Application]
+    I --> A
+    I --> H
