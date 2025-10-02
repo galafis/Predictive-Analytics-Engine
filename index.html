@@ -1,53 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predictive Analytics Engine</title>
+    <title>Predictive Analytics Engine - Gabriel Demetrios Lafis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #004085;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem 0;
             text-align: center;
+            box-shadow: 0 2px 4px var(--shadow-light);
         }
+
+        .header h1 {
+            margin: 0;
+            font-weight: 700;
+        }
+
         .container {
-            background: #fff;
-            padding: 30px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 800px;
-            margin: 20px;
+            box-shadow: 0 4px 8px var(--shadow-light);
+            transition: transform 0.3s ease-in-out;
         }
-        h1 {
-            color: #0056b3;
+
+        .card:hover {
+            transform: translateY(-5px);
         }
-        p {
-            margin-bottom: 10px;
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
         }
-        a {
-            color: #0056b3;
+
+        .button-group {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
             text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 4px var(--shadow-light);
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header class="header">
         <h1>Predictive Analytics Engine</h1>
-        <p>Bem-vindo ao Predictive Analytics Engine, um projeto robusto e profissional para análises preditivas avançadas.</p>
-        <p>Este projeto demonstra as melhores práticas em desenvolvimento de software, arquitetura de código limpo e implementações padrão da indústria.</p>
-        <p>Para mais detalhes, visite o repositório no GitHub: <a href="https://github.com/galafis/Predictive-Analytics-Engine">galafis/Predictive-Analytics-Engine</a></p>
-        <p>Autor: Gabriel Demetrios Lafis</p>
-    </div>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Bem-vindo ao Projeto</h2>
+            <p>Este é o <strong>Predictive Analytics Engine</strong>, um projeto robusto e profissional em Python, projetado para análises preditivas avançadas utilizando técnicas de aprendizado de máquina e previsão.</p>
+            <p>Ele demonstra as melhores práticas modernas em desenvolvimento de software, arquitetura de código limpo e implementações padrão da indústria, tornando-o uma referência ideal para cientistas de dados e engenheiros de software.</p>
+            <div class="button-group">
+                <a href="https://github.com/galafis/Predictive-Analytics-Engine" target="_blank" class="button">Ver Repositório no GitHub</a>
+                <a href="https://github.com/galafis/Predictive-Analytics-Engine#documenta%C3%A7%C3%A3o-detalhada" target="_blank" class="button">Acessar Documentação Detalhada</a>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Tecnologias Utilizadas</h2>
+            <p>O projeto é construído principalmente com <strong>Python</strong>, utilizando bibliotecas como <code>scikit-learn</code> e <code>pandas</code> para modelagem preditiva e manipulação de dados. A arquitetura é modular, facilitando a expansão e manutenção.</p>
+            <p>Explore o código-fonte para entender a implementação de algoritmos de Machine Learning e as melhores práticas de engenharia de dados.</p>
+        </section>
+
+        <section class="card">
+            <h2>Funcionalidades Principais</h2>
+            <ul>
+                <li>Arquitetura de código profissional e escalável.</li>
+                <li>Implementação de algoritmos de Machine Learning para previsão.</li>
+                <li>Processamento e engenharia de dados robustos.</li>
+                <li>Documentação detalhada de cada componente.</li>
+                <li>Otimizado para desempenho e fácil manutenção.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Gabriel Demetrios Lafis. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
+
