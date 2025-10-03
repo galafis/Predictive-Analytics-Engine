@@ -9,7 +9,10 @@
 
 ## English
 
+### 🖼️ Hero Image
+
 ![Predictive Analytics Engine Hero Image](hero_image.png)
+
 
 ### Architecture Diagram
 
@@ -124,7 +127,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Português
 
+### 🖼️ Imagem Hero
+
 ![Imagem Principal do Predictive Analytics Engine](hero_image.png)
+
 
 ### Diagrama de Arquitetura
 
