@@ -1,9 +1,7 @@
 # Predictive-Analytics-Engine
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.2%2B-orange?style=for-the-badge&logo=scikit-learn)
 ![Pandas](https://img.shields.io/badge/Pandas-1.5%2B-red?style=for-the-badge&logo=pandas)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-green?style=for-the-badge&logo=githubactions)
 ![License](https://img.shields.io/github/license/galafis/Predictive-Analytics-Engine?style=for-the-badge)
 
 
