@@ -1,417 +1,292 @@
-# 📊 Predictive Analytics Engine
+# Predictive-Analytics-Engine
 
-> Professional repository showcasing advanced development skills
+Pipeline de analytics preditivo com modulos de carregamento de dados, preprocessamento,
+modelos de classificacao/regressao e visualizacao.
 
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg)](https://img.shields.io/badge/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://img.shields.io/badge/)
-[![Gin](https://img.shields.io/badge/Gin-1.9-00ADD8.svg)](https://img.shields.io/badge/)
-[![NumPy](https://img.shields.io/badge/NumPy-1.26-013243.svg)](https://img.shields.io/badge/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2-150458.svg)](https://img.shields.io/badge/)
-[![scikit--learn](https://img.shields.io/badge/scikit--learn-1.4-F7931E.svg)](https://img.shields.io/badge/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB.svg)](https://python.org)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-F7931E.svg)](https://scikit-learn.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[English](#english) | [Português](#português)
+[Portugues](#portugues) | [English](#english)
+
+---
+
+## Portugues
+
+### Visao Geral
+
+Projeto educacional que implementa um motor de analytics preditivo modular com:
+
+- **DataLoader** — carregamento de dados de CSV, JSON, Excel, Parquet, SQLite e URL, com cache e validacao
+- **Preprocessor** — pipeline de preprocessamento com imputacao, scaling e one-hot encoding via scikit-learn `ColumnTransformer`
+- **Modelos** — wrappers para `LogisticRegression` (classificacao) e `LinearRegression` (regressao) com interface `BaseModel`, factory `get_model()` e persistencia via pickle
+- **Metricas** — calculo automatico de accuracy/precision/recall/F1 (classificacao) ou RMSE/R2 (regressao)
+- **Visualizacao** — scatter plot de predicoes vs valores reais
+- **Configuracao** — sistema de configuracao centralizado via dataclasses com JSON serialization
+
+O `main.py` fornece um demo standalone que gera dados sinteticos, treina um `RandomForestClassifier` e salva graficos EDA.
+
+### Arquitetura
+
+```mermaid
+graph TD
+    A[main.py<br>Demo standalone] --> B[config/config.py<br>Config centralizada]
+
+    subgraph src["src/ — Modulos do Engine"]
+        C[data_loader.py<br>CSV, JSON, Excel, Parquet, SQLite]
+        D[preprocessor.py<br>Imputer + Scaler + Encoder]
+        E[analytics_engine.py<br>Orquestrador do pipeline]
+        F[models/<br>BaseModel + Classification + Regression]
+        G[utils/metrics.py<br>Accuracy, RMSE, R2]
+        H[utils/visualization.py<br>Scatter plot predicoes]
+    end
+
+    E --> C
+    E --> D
+    E --> F
+    E --> G
+    E --> H
+    E --> I[config/settings.py]
+
+    style A fill:#4a90d9,color:#fff
+    style src fill:#f0f4f8,stroke:#ccc
+```
+
+### Como Executar
+
+```bash
+# Clonar repositorio
+git clone https://github.com/galafis/Predictive-Analytics-Engine.git
+cd Predictive-Analytics-Engine
+
+# Criar ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Executar demo (dados sinteticos + Random Forest + graficos EDA)
+python main.py
+
+# Executar testes
+pytest tests/ -v
+```
+
+### Saida
+
+O `main.py` gera:
+- Metricas de classificacao no terminal (accuracy, precision, recall, F1)
+- Arquivo `predictive_analytics_analysis.png` com 4 graficos EDA
+
+### Uso do Engine (src/)
+
+```python
+from src.data_loader import DataLoader
+from src.preprocessor import Preprocessor
+from src.models import get_model
+
+# Carregar dados
+loader = DataLoader()
+df = loader.load("data.csv")
+
+# Preprocessar
+prep = Preprocessor()
+result = prep.transform(df, target="target")
+X_train, X_test, y_train, y_test = prep.split(result["X"], result["y"])
+
+# Treinar modelo
+model = get_model("classification")
+model.fit(X_train, y=y_train)
+preds = model.predict(X_test)
+```
+
+### Estrutura do Projeto
+
+```
+Predictive-Analytics-Engine/
+├── main.py                     # Demo standalone (RandomForest + EDA)
+├── requirements.txt            # Dependencias Python
+├── config/
+│   ├── __init__.py
+│   ├── config.py               # Config centralizada (dataclasses + JSON)
+│   └── settings.py             # Settings para o engine (preprocessor)
+├── src/
+│   ├── __init__.py
+│   ├── analytics_engine.py     # Orquestrador do pipeline
+│   ├── data_loader.py          # Carregamento multi-formato
+│   ├── preprocessor.py         # Pipeline de preprocessamento
+│   ├── models/
+│   │   ├── __init__.py         # get_model() factory + MODEL_REGISTRY
+│   │   ├── base_model.py       # ABC com fit/predict/save/load
+│   │   ├── classification.py   # LogisticRegression wrapper
+│   │   └── regression.py       # LinearRegression wrapper
+│   └── utils/
+│       ├── __init__.py
+│       ├── metrics.py          # Classification + regression metrics
+│       └── visualization.py    # Scatter plot de predicoes
+├── tests/
+│   ├── __init__.py
+│   └── test_main.py            # ~30 testes funcionais
+├── docs/
+│   └── architecture_diagram.mmd
+├── LICENSE
+└── README.md
+```
+
+### Stack Tecnologica
+
+| Tecnologia | Uso |
+|------------|-----|
+| Python 3.10+ | Linguagem principal |
+| scikit-learn | Modelos, preprocessamento, metricas |
+| pandas | Carregamento e manipulacao de dados |
+| NumPy | Operacoes numericas |
+| matplotlib | Graficos e visualizacoes |
+| seaborn | Estilos e plots estatisticos |
+| pytest | Testes funcionais |
+
+### Autor
+
+**Gabriel Demetrios Lafis**
+- GitHub: [@galafis](https://github.com/galafis)
+- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+
+### Licenca
+
+Licenciado sob a Licenca MIT - veja [LICENSE](LICENSE).
 
 ---
 
 ## English
 
-### 🎯 Overview
+### Overview
 
-**Predictive Analytics Engine** is a production-grade Python application complemented by HTML that showcases modern software engineering practices including clean architecture, comprehensive testing, containerized deployment, and CI/CD readiness.
+Educational project implementing a modular predictive analytics engine with:
 
-The codebase comprises **2,498 lines** of source code organized across **21 modules**, following industry best practices for maintainability, scalability, and code quality.
+- **DataLoader** — load data from CSV, JSON, Excel, Parquet, SQLite, and URLs with caching and validation
+- **Preprocessor** — preprocessing pipeline with imputation, scaling, and one-hot encoding via scikit-learn `ColumnTransformer`
+- **Models** — wrappers for `LogisticRegression` (classification) and `LinearRegression` (regression) with `BaseModel` interface, `get_model()` factory, and pickle persistence
+- **Metrics** — automatic computation of accuracy/precision/recall/F1 (classification) or RMSE/R2 (regression)
+- **Visualization** — scatter plot of predictions vs actual values
+- **Configuration** — centralized config system via dataclasses with JSON serialization
 
-### ✨ Key Features
+`main.py` provides a standalone demo that generates synthetic data, trains a `RandomForestClassifier`, and saves EDA charts.
 
-- **📊 Interactive Visualizations**: Dynamic charts with real-time data updates
-- **🎨 Responsive Design**: Adaptive layout for desktop and mobile devices
-- **📈 Data Aggregation**: Multi-dimensional data analysis and filtering
-- **📥 Export Capabilities**: PDF, CSV, and image export for reports
-- **🐳 Containerized**: Docker support for consistent deployment
-- **🏗️ Object-Oriented**: 20 core classes with clean architecture
-
-### 🏗️ Architecture
+### Architecture
 
 ```mermaid
-graph TB
-    subgraph Client["🖥️ Client Layer"]
-        A[REST API Client]
-        B[Swagger UI]
+graph TD
+    A[main.py<br>Standalone demo] --> B[config/config.py<br>Centralized config]
+
+    subgraph src["src/ — Engine modules"]
+        C[data_loader.py<br>CSV, JSON, Excel, Parquet, SQLite]
+        D[preprocessor.py<br>Imputer + Scaler + Encoder]
+        E[analytics_engine.py<br>Pipeline orchestrator]
+        F[models/<br>BaseModel + Classification + Regression]
+        G[utils/metrics.py<br>Accuracy, RMSE, R2]
+        H[utils/visualization.py<br>Predictions scatter plot]
     end
-    
-    subgraph API["⚡ API Layer"]
-        C[Authentication & Rate Limiting]
-        D[Request Validation]
-        E[API Endpoints]
-    end
-    
-    subgraph ML["🤖 ML Engine"]
-        F[Feature Engineering]
-        G[Model Training]
-        H[Prediction Service]
-        I[Model Registry]
-    end
-    
-    subgraph Data["💾 Data Layer"]
-        J[(Database)]
-        K[Cache Layer]
-        L[Data Pipeline]
-    end
-    
-    A --> C
-    B --> C
-    C --> D --> E
+
+    E --> C
+    E --> D
+    E --> F
+    E --> G
     E --> H
-    E --> J
-    H --> F --> G
-    G --> I
-    I --> H
-    E --> K
-    L --> J
-    
-    style Client fill:#e1f5fe
-    style API fill:#f3e5f5
-    style ML fill:#e8f5e9
-    style Data fill:#fff3e0
+    E --> I[config/settings.py]
+
+    style A fill:#4a90d9,color:#fff
+    style src fill:#f0f4f8,stroke:#ccc
 ```
 
-```mermaid
-classDiagram
-    class Preprocessor
-    class PredictiveAnalyticsEngine
-    class ModelConfig
-    class Settings
-    class ModelMetrics
-    class LoggingConfig
-    class PreprocessorSettings
-    class Config
-    class PredictiveEngine
-    class BaseModel
-    BaseModel <|-- Preprocessor
-    BaseModel <|-- Settings
-    BaseModel <|-- LoggingConfig
-    BaseModel <|-- PreprocessorSettings
-    BaseModel <|-- Config
-    PredictiveAnalyticsEngine --> ModelConfig : uses
-    PredictiveAnalyticsEngine --> ModelMetrics : uses
-    PredictiveEngine --> ModelConfig : uses
-```
-
-### 🚀 Quick Start
-
-#### Prerequisites
-
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
+### Quick Start
 
 ```bash
-# Clone the repository
 git clone https://github.com/galafis/Predictive-Analytics-Engine.git
 cd Predictive-Analytics-Engine
-
-# Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+source venv/bin/activate
 pip install -r requirements.txt
-```
-
-#### Running
-
-```bash
-# Run the application
 python main.py
+pytest tests/ -v
 ```
 
-### 🧪 Testing
+### Output
 
-```bash
-# Run all tests
-pytest
+`main.py` produces:
+- Classification metrics printed to terminal (accuracy, precision, recall, F1)
+- `predictive_analytics_analysis.png` file with 4 EDA charts
 
-# Run with coverage report
-pytest --cov --cov-report=html
+### Engine Usage (src/)
 
-# Run specific test module
-pytest tests/test_main.py -v
+```python
+from src.data_loader import DataLoader
+from src.preprocessor import Preprocessor
+from src.models import get_model
 
-# Run with detailed output
-pytest -v --tb=short
+loader = DataLoader()
+df = loader.load("data.csv")
+
+prep = Preprocessor()
+result = prep.transform(df, target="target")
+X_train, X_test, y_train, y_test = prep.split(result["X"], result["y"])
+
+model = get_model("classification")
+model.fit(X_train, y=y_train)
+preds = model.predict(X_test)
 ```
 
-### 📁 Project Structure
+### Project Structure
 
 ```
 Predictive-Analytics-Engine/
-├── config/        # Configuration
-│   ├── config.py
-│   └── settings.py
-├── docs/          # Documentation
-│   └── index.md
-├── src/          # Source code
-│   ├── models/        # Data models
-│   │   ├── __init__.py
-│   │   ├── base_model.py
-│   │   ├── classification.py
-│   │   └── regression.py
-│   ├── utils/         # Utilities
-│   │   ├── __init__.py
-│   │   ├── metrics.py
-│   │   └── visualization.py
+├── main.py                     # Standalone demo (RandomForest + EDA)
+├── requirements.txt            # Python dependencies
+├── config/
 │   ├── __init__.py
-│   ├── analytics_engine.py
-│   ├── data_loader.py
-│   ├── engine.py
-│   └── preprocessor.py
-├── tests/         # Test suite
+│   ├── config.py               # Centralized config (dataclasses + JSON)
+│   └── settings.py             # Engine settings (preprocessor)
+├── src/
 │   ├── __init__.py
-│   ├── test_engine.py
-│   ├── test_main.py
-│   ├── test_models.py
-│   └── test_preprocessor.py
-├── CONTRIBUTING.md
-├── Dockerfile
+│   ├── analytics_engine.py     # Pipeline orchestrator
+│   ├── data_loader.py          # Multi-format data loading
+│   ├── preprocessor.py         # Preprocessing pipeline
+│   ├── models/
+│   │   ├── __init__.py         # get_model() factory + MODEL_REGISTRY
+│   │   ├── base_model.py       # ABC with fit/predict/save/load
+│   │   ├── classification.py   # LogisticRegression wrapper
+│   │   └── regression.py       # LinearRegression wrapper
+│   └── utils/
+│       ├── __init__.py
+│       ├── metrics.py          # Classification + regression metrics
+│       └── visualization.py    # Predictions scatter plot
+├── tests/
+│   ├── __init__.py
+│   └── test_main.py            # ~30 functional tests
+├── docs/
+│   └── architecture_diagram.mmd
 ├── LICENSE
-├── README.md
-├── main.py
-└── requirements.txt
+└── README.md
 ```
 
-### 📊 Performance Metrics
+### Tech Stack
 
-The engine calculates comprehensive performance metrics:
+| Technology | Usage |
+|------------|-------|
+| Python 3.10+ | Primary language |
+| scikit-learn | Models, preprocessing, metrics |
+| pandas | Data loading and manipulation |
+| NumPy | Numerical operations |
+| matplotlib | Charts and visualizations |
+| seaborn | Statistical plot styles |
+| pytest | Functional tests |
 
-| Metric | Description | Formula |
-|--------|-------------|---------|
-| **Sharpe Ratio** | Risk-adjusted return | (Rp - Rf) / σp |
-| **Sortino Ratio** | Downside risk-adjusted return | (Rp - Rf) / σd |
-| **Max Drawdown** | Maximum peak-to-trough decline | max(1 - Pt/Pmax) |
-| **Win Rate** | Percentage of profitable trades | Wins / Total |
-| **Profit Factor** | Gross profit / Gross loss | ΣProfit / ΣLoss |
-| **Calmar Ratio** | Return / Max Drawdown | CAGR / MDD |
-| **VaR (95%)** | Value at Risk | 5th percentile of returns |
-| **Expected Shortfall** | Conditional VaR | E[R | R < VaR] |
-
-### 🛠️ Tech Stack
-
-| Technology | Description | Role |
-|------------|-------------|------|
-| **Python** | Core Language | Primary |
-| **Docker** | Containerization platform | Framework |
-| **Gin** | Go web framework | Framework |
-| **NumPy** | Numerical computing | Framework |
-| **Pandas** | Data manipulation library | Framework |
-| **scikit-learn** | Machine learning library | Framework |
-| HTML | 1 files | Supporting |
-
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### 👤 Author
+### Author
 
 **Gabriel Demetrios Lafis**
 - GitHub: [@galafis](https://github.com/galafis)
 - LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
 
----
+### License
 
-## Português
-
-### 🎯 Visão Geral
-
-**Predictive Analytics Engine** é uma aplicação Python de nível profissional, complementada por HTML que demonstra práticas modernas de engenharia de software, incluindo arquitetura limpa, testes abrangentes, implantação containerizada e prontidão para CI/CD.
-
-A base de código compreende **2,498 linhas** de código-fonte organizadas em **21 módulos**, seguindo as melhores práticas do setor para manutenibilidade, escalabilidade e qualidade de código.
-
-### ✨ Funcionalidades Principais
-
-- **📊 Interactive Visualizations**: Dynamic charts with real-time data updates
-- **🎨 Responsive Design**: Adaptive layout for desktop and mobile devices
-- **📈 Data Aggregation**: Multi-dimensional data analysis and filtering
-- **📥 Export Capabilities**: PDF, CSV, and image export for reports
-- **🐳 Containerized**: Docker support for consistent deployment
-- **🏗️ Object-Oriented**: 20 core classes with clean architecture
-
-### 🏗️ Arquitetura
-
-```mermaid
-graph TB
-    subgraph Client["🖥️ Client Layer"]
-        A[REST API Client]
-        B[Swagger UI]
-    end
-    
-    subgraph API["⚡ API Layer"]
-        C[Authentication & Rate Limiting]
-        D[Request Validation]
-        E[API Endpoints]
-    end
-    
-    subgraph ML["🤖 ML Engine"]
-        F[Feature Engineering]
-        G[Model Training]
-        H[Prediction Service]
-        I[Model Registry]
-    end
-    
-    subgraph Data["💾 Data Layer"]
-        J[(Database)]
-        K[Cache Layer]
-        L[Data Pipeline]
-    end
-    
-    A --> C
-    B --> C
-    C --> D --> E
-    E --> H
-    E --> J
-    H --> F --> G
-    G --> I
-    I --> H
-    E --> K
-    L --> J
-    
-    style Client fill:#e1f5fe
-    style API fill:#f3e5f5
-    style ML fill:#e8f5e9
-    style Data fill:#fff3e0
-```
-
-### 🚀 Início Rápido
-
-#### Prerequisites
-
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/galafis/Predictive-Analytics-Engine.git
-cd Predictive-Analytics-Engine
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-#### Running
-
-```bash
-# Run the application
-python main.py
-```
-
-### 🧪 Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov --cov-report=html
-
-# Run specific test module
-pytest tests/test_main.py -v
-
-# Run with detailed output
-pytest -v --tb=short
-```
-
-### 📁 Estrutura do Projeto
-
-```
-Predictive-Analytics-Engine/
-├── config/        # Configuration
-│   ├── config.py
-│   └── settings.py
-├── docs/          # Documentation
-│   └── index.md
-├── src/          # Source code
-│   ├── models/        # Data models
-│   │   ├── __init__.py
-│   │   ├── base_model.py
-│   │   ├── classification.py
-│   │   └── regression.py
-│   ├── utils/         # Utilities
-│   │   ├── __init__.py
-│   │   ├── metrics.py
-│   │   └── visualization.py
-│   ├── __init__.py
-│   ├── analytics_engine.py
-│   ├── data_loader.py
-│   ├── engine.py
-│   └── preprocessor.py
-├── tests/         # Test suite
-│   ├── __init__.py
-│   ├── test_engine.py
-│   ├── test_main.py
-│   ├── test_models.py
-│   └── test_preprocessor.py
-├── CONTRIBUTING.md
-├── Dockerfile
-├── LICENSE
-├── README.md
-├── main.py
-└── requirements.txt
-```
-
-### 📊 Performance Metrics
-
-The engine calculates comprehensive performance metrics:
-
-| Metric | Description | Formula |
-|--------|-------------|---------|
-| **Sharpe Ratio** | Risk-adjusted return | (Rp - Rf) / σp |
-| **Sortino Ratio** | Downside risk-adjusted return | (Rp - Rf) / σd |
-| **Max Drawdown** | Maximum peak-to-trough decline | max(1 - Pt/Pmax) |
-| **Win Rate** | Percentage of profitable trades | Wins / Total |
-| **Profit Factor** | Gross profit / Gross loss | ΣProfit / ΣLoss |
-| **Calmar Ratio** | Return / Max Drawdown | CAGR / MDD |
-| **VaR (95%)** | Value at Risk | 5th percentile of returns |
-| **Expected Shortfall** | Conditional VaR | E[R | R < VaR] |
-
-### 🛠️ Stack Tecnológica
-
-| Tecnologia | Descrição | Papel |
-|------------|-----------|-------|
-| **Python** | Core Language | Primary |
-| **Docker** | Containerization platform | Framework |
-| **Gin** | Go web framework | Framework |
-| **NumPy** | Numerical computing | Framework |
-| **Pandas** | Data manipulation library | Framework |
-| **scikit-learn** | Machine learning library | Framework |
-| HTML | 1 files | Supporting |
-
-### 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
-
-### 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-### 👤 Autor
-
-**Gabriel Demetrios Lafis**
-- GitHub: [@galafis](https://github.com/galafis)
-- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+Licensed under the MIT License - see [LICENSE](LICENSE).
