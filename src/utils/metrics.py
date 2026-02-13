@@ -32,6 +32,6 @@ class ModelMetrics:
 def _is_regression(y_true: Any) -> bool:
     try:
         y = np.asarray(y_true)
-        return np.issubdtype(y.dtype, np.floating) or np.issubdtype(y.dtype, np.integer) and len(np.unique(y)) > 20
+        return np.issubdtype(y.dtype, np.floating) or (np.issubdtype(y.dtype, np.integer) and len(np.unique(y)) > 20)
     except Exception:
         return False

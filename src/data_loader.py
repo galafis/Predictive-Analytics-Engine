@@ -134,7 +134,6 @@ class DataLoader:
             'encoding': 'utf-8',
             'low_memory': False,
             'parse_dates': True,
-            'infer_datetime_format': True
         }
         default_kwargs.update(kwargs)
         

@@ -15,7 +15,7 @@ from pathlib import Path
 from .data_loader import DataLoader
 from .preprocessor import Preprocessor
 from .models.base_model import BaseModel
-from .config.settings import Settings
+from config.settings import Settings
 from .utils.metrics import ModelMetrics
 from .utils.visualization import Visualizer
 
