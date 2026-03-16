@@ -2,20 +2,14 @@
 
 # Predictive Analytics Engine
 
-<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-<img src="https://img.shields.io/badge/scikit--learn-1.3+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="scikit-learn">
-<img src="https://img.shields.io/badge/pandas-2.0+-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas">
-<img src="https://img.shields.io/badge/NumPy-1.24+-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy">
-<img src="https://img.shields.io/badge/matplotlib-3.7+-11557C?style=for-the-badge&logo=matplotlib&logoColor=white" alt="matplotlib">
-<img src="https://img.shields.io/badge/seaborn-0.12+-4C72B0?style=for-the-badge&logo=seaborn&logoColor=white" alt="seaborn">
-<img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+![License-MIT](https://img.shields.io/badge/License--MIT-yellow?style=for-the-badge)
 
-<br/>
-
-<img src="https://img.shields.io/badge/Tests-pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white" alt="Tests">
-<img src="https://img.shields.io/badge/Coverage-30_tests-brightgreen?style=flat-square" alt="Coverage">
-<img src="https://img.shields.io/badge/Code_Style-PEP8-000000?style=flat-square&logo=python&logoColor=white" alt="Code Style">
-<img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="License">
 
 <br/><br/>
 
