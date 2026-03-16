@@ -1,4 +1,4 @@
-# Python specific
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -20,6 +20,8 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Virtual environments
 .env
 .venv
 env/
@@ -27,3 +29,52 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Distribution
+*.tar.gz
+*.whl
+
+# Logs
+logs/
+*.log
+
+# Data / Models (local artifacts)
+data/
+output/
+models/
+models_store/
+*.pkl
+*.pickle
+*.h5
+*.joblib
+
+# Generated images
+predictive_analytics_analysis.png
+
+# Config overrides
+config.json
